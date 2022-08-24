@@ -1,1 +1,57 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试推流接口</title>
+</head>
+<body>
+    <h1></h1>
+    <p>
+       <form action="" enctype='multipart/form-data' method='POST' name='start'>
+	  <input type="radio" name="only" checked=true value="A">画框&emsp;&emsp;
+          X1:<input type="text" name="x1" value="100 " style="width:50px; height:20px;">
+          Y1:<input type="text" name="y1" value="100 " style="width:50px; height:20px;">
+          X2:<input type="text" name="x2" value="500 " style="width:50px; height:20px;">
+          Y2:<input type="text" name="y2" value="500 " style="width:50px; height:20px;">
+	  <br>
+	  <input type="radio" name="only" checked=true value="B">加文字&emsp;&emsp;
+          <input type="text" name="wordsvalue" value="Video Test !!! " >
+	  <br>
+	  <input type="radio" name="only" checked=false value="C"> 什么都不做
+          <br>
+	  <input type="hidden" value="sendrequest"  name="label" >
+          <input type="submit" id="aaaaa"  value="开始实时分析视频流" class="button-new" name="button"  style="margin-top:15px;" />
+       </form>
+    </p>
+
+    <p>
+       <form action="" enctype='multipart/form-data' method='POST' name='end' >
+          <input type="hidden" value="cancelrequest"  name="label" >
+        <input type="submit" value="取消分析视频流" class="button-new" name="button"  style="margin-top:15px;"/>
+       </form>
+    </p>
+
+</body>
+
+<!-- script>
+<h2>
+视频流播放地址:
+</h2>
+
+<video ref="http://localhost:8075/live/livestream.m3u8" id="video"  width=600 height=400  controls></video>
+
+<script src="https://cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>
+  if(Hls.isSupported()) {
+    var video = document.getElementById('video');
+    var hls = new Hls();
+    hls.loadSource('http://localhost:8075/live/livestream.m3u8');
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+      video.play();
+  });
+ }
+</script -->
+
+
+
+</html>
