@@ -3,66 +3,316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人主页 | GitHub Pages</title>
-    <!-- 引入简单的样式美化页面 -->
+    <title>Marsen - 个人主页</title>
     <style>
+        /* 全局样式重置 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft YaHei", sans-serif;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
         }
+
         body {
-            background-color: #f5f5f5;
-            padding: 20px;
+            background-color: #f5f7fa;
+            padding: 40px 20px;
+            line-height: 1.6;
         }
+
+        /* 主页容器 */
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+            padding: 50px;
         }
-        h1 {
-            color: #2c3e50;
+
+        /* 个人信息头部 */
+        .profile-header {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        /* 圆形照片样式 */
+        .profile-photo {
+            flex: 0 0 220px;
+            height: 220px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid #eef5ff;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 文字介绍区域 */
+        .profile-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-info h1 {
+            color: #2d3748;
+            font-size: 32px;
             margin-bottom: 20px;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
+            font-weight: 600;
         }
-        .info {
-            margin: 15px 0;
+
+        .profile-info .intro {
+            color: #4a5568;
+            font-size: 20px;
+            margin-bottom: 20px;
             line-height: 1.8;
         }
-        .info strong {
-            color: #3498db;
+
+        .profile-info .contact {
+            color: #718096;
+            font-size: 18px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .links a {
-            display: inline-block;
-            margin: 10px 15px 10px 0;
+
+        .contact svg {
+            width: 22px;
+            height: 22px;
+            fill: #4299e1;
+        }
+
+        /* 平台按钮样式 */
+        .platform-buttons {
+            margin: 35px 0 0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .platform-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
             color: white;
-            background: #3498db;
-            padding: 8px 15px;
-            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .github-btn {
+            background-color: #333;
+        }
+
+        .modelscope-btn {
+            background-color: #0088ff;
+        }
+
+        .bilibili-btn {
+            background-color: #fb7299;
+        }
+
+        .zhihu-btn {
+            background-color: #0084ff;
+        }
+
+        .platform-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0.9;
+        }
+
+        /* B站视频展示区域 */
+        .video-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .video-section h2 {
+            color: #2d3748;
+            font-size: 26px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-section h2 svg {
+            fill: #fb7299;
+            width: 28px;
+            height: 28px;
+        }
+
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .video-cover {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fb7299;
+            font-size: 14px;
+        }
+
+        .video-card a {
             text-decoration: none;
         }
-        .links a:hover {
-            background: #2980b9;
+
+        .video-title {
+            padding: 15px;
+            color: #2d3748;
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+                margin-bottom: 40px;
+            }
+
+            .profile-info .contact {
+                justify-content: center;
+            }
+
+            .platform-buttons {
+                justify-content: center;
+            }
+
+            .video-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>👋 你好，我是 XXX</h1>
-        <div class="info">
-            <p><strong>个人简介：</strong> 一名热爱编程的开发者，专注于前端/后端/全栈开发（可自行修改）。</p>
-            <p><strong>技能栈：</strong> HTML/CSS/JavaScript、Python、Java（根据自己情况修改）。</p>
-            <p><strong>邮箱：</strong> your-email@example.com（替换为自己的邮箱）。</p>
+        <!-- 个人信息头部：仅需替换照片链接 -->
+        <div class="profile-header">
+            <div class="profile-photo">
+                <!-- 替换此处src为你的照片公开链接（推荐上传到github仓库后复制图片地址） -->
+                <img src="assets/MyHead.jpg" alt="Marsen个人照片">
+            </div>
+
+            <div class="profile-info">
+                <h1>👋 你好，我是Marsen</h1>
+                <p class="intro">
+                    一名热爱编程，热爱人工智能，热爱高科技，热爱生活的艺术家
+                </p>
+                <p class="contact">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    邮箱：734216167@qq.com
+                </p>
+                <p class="contact">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    居住地：北京
+                </p>
+
+                <!-- 已配置好所有平台真实链接 -->
+                <div class="platform-buttons">
+                    <a href="https://github.com/horse007666" class="platform-btn github-btn" target="_blank">
+                        GitHub
+                    </a>
+                    <a href="https://modelscope.cn/profile/masheng" class="platform-btn modelscope-btn" target="_blank">
+                        ModelScope
+                    </a>
+                    <a href="https://www.bilibili.com" class="platform-btn bilibili-btn" target="_blank">
+                        哔哩哔哩
+                    </a>
+                    <a href="https://www.zhihu.com/people/ma-sheng-ge-ge" class="platform-btn zhihu-btn" target="_blank">
+                        知乎
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="links">
-            <a href="https://github.com/你的用户名" target="_blank">我的 GitHub</a>
-            <a href="https://blog.example.com" target="_blank">我的博客</a>
-            <a href="https://linkedin.com/in/你的用户名" target="_blank">LinkedIn</a>
+
+        <!-- B站视频区域：已配置好4条真实视频链接 -->
+        <div class="video-section">
+            <h2>
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+                我的哔哩哔哩视频
+            </h2>
+            <div class="video-list">
+                <!-- 视频1 -->
+                <div class="video-card">
+                    <a href="https://www.bilibili.com/video/BV11dMjztERU/?spm_id_from=333.1387.homepage.video_card.click&vd_source=272c55213eb804b465ff2382e680d195" target="_blank">
+                        <img src="http://i2.hdslb.com/bfs/archive/6fc7d45035a5849d77ddde9f4c6bdc9f5c8c219d.jpg" alt="视频封面" class="video-cover">
+                        <div class="video-title">视频1 | 大模型教我下象棋</div>
+                    </a>
+                </div>
+                <!-- 视频2 -->
+                <div class="video-card">
+                    <a href="https://www.bilibili.com/video/BV1YLkXB3Etn/?spm_id_from=333.1387.homepage.video_card.click&vd_source=272c55213eb804b465ff2382e680d195" target="_blank">
+                        <img src="http://i2.hdslb.com/bfs/archive/a5c48a03ceb0b75212e84b32ea4d476e489e8d04.jpg" 
+                            alt="视频封面" 
+                            class="video-cover">
+                        <div class="video-title">视频2 | 到底什么是宇称不守恒？</div>
+                    </a>
+                </div>
+                <!-- 视频3 -->
+                <div class="video-card">
+                    <a href="https://www.bilibili.com/video/BV1qVPszsEcV/?spm_id_from=333.1387.homepage.video_card.click&vd_source=272c55213eb804b465ff2382e680d195" target="_blank">
+                        <img src="http://i2.hdslb.com/bfs/archive/39960fa6b18e0d2cbf2cbdc0ce9fac01396f2823.jpg" alt="视频封面" 
+                            class="video-cover">
+                        <div class="video-title">视频3 | 江山美人我都要！AI短剧系列</div>
+                    </a>
+                </div>
+                <!-- 视频4 -->
+                <div class="video-card">
+                    <a href="https://www.bilibili.com/video/BV1rkPWeTExx/?spm_id_from=333.1387.homepage.video_card.click&vd_source=272c55213eb804b465ff2382e680d195" target="_blank">
+                        <img src="http://i2.hdslb.com/bfs/archive/33070dab387471f2bb38554e27e0e62c1660d4bf.jpg" alt="视频封面" 
+                            class="video-cover">
+                        <div class="video-title">视频4 | 快乐就是翻箱倒柜</div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </body>
